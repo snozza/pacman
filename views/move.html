@@ -1,13 +1,134 @@
 <html>
   <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    
   </head>
   <body>
-    <canvas width="500" height="500" style="border:solid 1px #000;" id="pacmanGrid"></canvas>
-    <script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+
+    <canvas width="500" height="500" style="border:solid 1px #000;" id="canvas"></canvas>
+    <script> 
+    $(document).ready(function(){
+
+      var canvas = $("#canvas")[0];
+      var context = canvas.getContext("2d");
+      var width = $("#canvas").width();
+      var height = $("#canvas").height();
+      
+      //Lets save the cell width in a variable for easy control
+      var pacRadius = 10;
+      var direction;
+      var food;
+      var score;
+      
+      function init()
+      {
+        direction = "right"; //default
+        create_pacman();
+        // create_sprite();
+        score = 0;
+        
+        if(typeof game_loop != "undefined") clearInterval(game_loop);
+        game_loop = setInterval(render, 60);
+      }
+      init();
+      
+      function create_pacman()
+      {
+        pacman = {
+          x: 100,
+          y: 100,
+          mouthOpenValue: 40,
+          mouthPosition: -1
+        }
+      }
+      
+      //Lets create the food now
+      // function create_sprite()
+      // {
+      //   food = {
+      //     x: Math.round(Math.random()*(width-cw)/cw), 
+      //     y: Math.round(Math.random()*(height-cw)/cw), 
+      //   };
+      //   //This will create a cell with x/y between 0-44
+      //   //Because there are 45(450/10) positions accross the rows and columns
+      // }
+      
+      //Lets paint the snake now
+      function render()
+      {
+      
+        context.fillStyle = "white";
+        context.fillRect(0, 0, width, height);
+        
+        //The movement code for pacman.
+        
+        if (pac.x === width/pacRadius || pac.y === height/pacRadius)
+        else if(direction == "right") pacman.x++;
+        else if(direction == "left") pacman.x--;
+        else if(direction == "up") pacman.y--;
+        else if(direction == "down") pacman.y++;
+        
+       //Pacman needs to stop if he hits a wall.      
+        // if(nx == -1 || pacman == width/cw || ny == -1 || ny == height/cw)
+  
+        paintPacman(pacman.x, pacman.y, pacman.mouthOpenValue, 
+          pacman.mouthPosition, direction);  
+        
+      }
+
+      //Lets first create a generic function to paint cells
+      function paintPacman(x, y, mouthOpenValue, mouthPosition, direction)
+      {
+        if (mouthOpenValue <= 0) {
+          mouthPosition = 1;
+        }
+        else if (mouthOpenValue >= 40){
+          mouthPosition = -1;
+        }
+        mouthOpenValue += (2 * mouthPosition);
+        context.beginPath();
+        if (direction === 'right') {
+          context.arc(x, y, 20, 
+            (Math.PI / 180) * mouthOpenValue, 
+            (Math.PI / 180) * (360 - mouthOpenValue));
+        }
+        else if (direction === 'left'){
+          context.arc(x, y, 20,
+            (Math.PI / 180) * (179 - mouthOpenValue), //to stop flicker dont draw 180 to 180
+            (Math.PI / 180) * (180 + mouthOpenValue), true); 
+        }
+        else if (direction === 'up'){
+          context.arc(x, y, 20,
+            (Math.PI / 180) * (179 - mouthOpenValue), //to stop flicker dont draw 180 to 180
+            (Math.PI / 180) * (180 + mouthOpenValue), true); 
+        }
+        else {
+          context.arc(x, y, 20,
+            (Math.PI / 180) * (179 - mouthOpenValue), //to stop flicker dont draw 180 to 180
+            (Math.PI / 180) * (180 + mouthOpenValue), true); 
+        }
 
 
+        context.lineTo(x, y);
+        context.fillStyle = '#000';
+        context.fill();
+      }
+      
+      //keyboard controls
+      $(document).keydown(function(event){
+        var key = event.which;
 
+        if(key == "37") direction = "left";
+        else if(key == "38") direction = "up";
+        else if(key == "39") direction = "right";
+        else if(key == "40") direction = "down";
+      })
+
+    });
+  
+  
     </script>
   </body>
 </html>
