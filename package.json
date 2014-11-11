@@ -1,0 +1,11 @@
+{
+  "name": "pacman",
+  "version": "1.0.0",
+  "description": "Pacman in HTML5 and nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Pablo, Sandrine, Denise, Snozza",
+  "license": "ISC"
+}

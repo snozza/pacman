@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  </head>
+  <body>
+    <canvas width="500" height="500" style="border:solid 1px #000;" id="pacmanGrid"></canvas>
+    <script>
+    window.requestAnimationFrame = (function () {
+      return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) {
+              window.setTimeout(callback, 1000 / 60);
+            };
+    })();
+
+    var canvas, c;
+    window.addEventListener('load', function () {
+      canvas = document.getElementById('pacmanGrid');
+      c = canvas.getContext('2d');
+      canvas.addEventListener('click', function () {
+          window.requestAnimationFrame(drawLoop);
+        }, false
+      );
+    }, false);
+
+    function drawLoop() {
+      pacman.x += 5; //It was going a bit slow. I sped it up.
+      c.clearRect(0, 0, canvas.width, canvas.height);
+      pacman.draw();
+      window.requestAnimationFrame(drawLoop);
+    }
+    var pacman = {
+      x: 100,
+      mouthOpenValue: 40,
+      mouthPosition: -1,
+
+      draw: function () {
+        if (this.mouthOpenValue <= 0) {
+            this.mouthPosition = 1;
+          }
+        else if (this.mouthOpenValue >= 40){
+          this.mouthPosition = -1;
+        }
+        this.mouthOpenValue += (5 * this.mouthPosition);
+        c.beginPath();
+        c.arc(this.x, 100, 50, 
+          (Math.PI / 180) * this.mouthOpenValue, 
+          (Math.PI / 180) * (360 - this.mouthOpenValue));
+        c.lineTo(this.x, 100);
+        c.fillStyle = '#FF0';
+        c.fill();
+      }
+    };
+
+    </script>
+  </body>
+</html>
