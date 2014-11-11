@@ -45,20 +45,20 @@
           this.mouthPosition = -1;
         }
 
-        if(this.x >= canvas.width - 50)
+        if(this.x >= canvas.width - 10) // the radius
           this.direction = -1;
-        else if (this.x <= 50)
+        else if (this.x <= 10) //the radius
           this.direction = 1;
-        this.x += (5 * this.direction);
+        this.x += (2 * this.direction);
         this.mouthOpenValue += (5 * this.mouthPosition);
         c.beginPath();
         if (this.direction === 1) {
-          c.arc(this.x, 100, 50, 
+          c.arc(this.x, 100, 20, 
             (Math.PI / 180) * this.mouthOpenValue, 
             (Math.PI / 180) * (360 - this.mouthOpenValue));
         }
         else {
-          c.arc(this.x, 100, 50,
+          c.arc(this.x, 100, 20,
             (Math.PI / 180) * (179 - this.mouthOpenValue), //to stop flicker dont draw 180 to 180
             (Math.PI / 180) * (180 + this.mouthOpenValue), true); 
         }
