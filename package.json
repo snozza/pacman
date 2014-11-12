@@ -2,14 +2,25 @@
   "name": "pacman",
   "version": "1.0.0",
   "description": "Pacman in HTML5 and nodejs",
-  "main": "index.js",
+  "main": "app.js
+  ",
   "scripts": {
     "test": "mocha"
   },
   "author": "Pablo, Sandrine, Denise, Snozza",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.10.2",
     "socket.io": "^1.2.0",
     "underscore": "^1.7.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/snozza/pacman.git"
+  },
+  "bugs": {
+    "url": "https://github.com/snozza/pacman/issues"
+  },
+  "homepage": "https://github.com/snozza/pacman"
 }

@@ -37,3 +37,4 @@ Game.prototype.animate = function() {
   });
 };
 
+module.exports = Game;
