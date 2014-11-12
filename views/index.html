@@ -31,17 +31,17 @@
       });
     
       
-      function render(pacman, sprite, direction)
+      function render(pacman, sprite)
       {      
         context.fillStyle = "white";
         context.fillRect(0, 0, width, height);
         
         //The movement code for pacman.
         
-        if(direction == "right") pacman.x+= pacman.speed;
-        else if(direction == "left") pacman.x-= pacman.speed;
-        else if(direction == "up") pacman.y-= pacman.speed;
-        else if(direction == "down") pacman.y+= pacman.speed;
+        if(pacman.direction == "right") pacman.x+= pacman.speed;
+        else if(pacman.direction == "left") pacman.x-= pacman.speed;
+        else if(pacman.direction == "up") pacman.y-= pacman.speed;
+        else if(pacman.direction == "down") pacman.y+= pacman.speed;
 
         if ((pacman.x - pacman.clearance) <= (sprite.x * 20) && (sprite.x * 20) <= (pacman.x + pacman.clearance)) {
           if((pacman.y - pacman.clearance) <= (sprite.y * 20) && (sprite.y * 20) <= (pacman.y + pacman.clearance)) {   
@@ -50,7 +50,7 @@
           }
         }
   
-        paintPacman(pacman.x, pacman.y);
+        paintPacman(pacman);
         paintSprite(sprite.x, sprite.y, sprite.size);
         var score_text = "Score: " + score;
         context.font="20px Georgia";
@@ -58,7 +58,7 @@
       }
 
   
-      function paintPacman(x, y)
+      function paintPacman(pacman)
       {
         if (pacman.mouthOpenValue <= 0) {
           pacman.mouthPosition = 1;
@@ -68,29 +68,29 @@
         }
         pacman.mouthOpenValue += (5 * pacman.mouthPosition);
         context.beginPath();
-        if (direction === 'right') {
-          context.arc(x, y, 20, 
+        if (pacman.direction === 'right') {
+          context.arc(pacman.x, pacman.y, 20, 
             (Math.PI / 180) * pacman.mouthOpenValue, 
             (Math.PI / 180) * (360 - pacman.mouthOpenValue));
         }
-        else if (direction === 'left'){
-          context.arc(x, y, 20,
+        else if (pacman.direction === 'left'){
+          context.arc(pacman.x, pacman.y, 20,
             (Math.PI / 180) * (179 - pacman.mouthOpenValue), //to stop flicker dont draw 180 to 180
             (Math.PI / 180) * (180 + pacman.mouthOpenValue), true); 
         }
-        else if (direction === 'up'){
-          context.arc(x, y, 20,
+        else if (pacman.direction === 'up'){
+          context.arc(pacman.x, pacman.y, 20,
             (Math.PI / 180) * (179 - pacman.mouthOpenValue),
             (Math.PI / 180) * (180 + pacman.mouthOpenValue), true); 
         }
         else {
-          context.arc(x, y, 20,
+          context.arc(pacman.x, pacman.y, 20,
             (Math.PI / 180) * (179 - pacman.mouthOpenValue),
             (Math.PI / 180) * (180 + pacman.mouthOpenValue), true); 
         }
 
-
-        context.lineTo(x, y);
+        console.log("you made it here");
+        context.lineTo(pacman.x, pacman.y);
         context.fillStyle = '#000';
         context.fill();
       }

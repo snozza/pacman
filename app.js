@@ -4,7 +4,7 @@ var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var Game = require('./pacman');
 
-game = new Game();
+var game = new Game();
 
 app.use(express.static(__dirname + '/public'));
 
@@ -14,14 +14,9 @@ app.get('/', function(req, res) {
 
 io.on('connection', function(socket) {
 
-  socket.on('start', function(msg) {
-    game.init()
-  });
-
-  socket.on('direction', function(dir) {
-    socket.broadcast.emit('direction', {
-      direction: dir
-    });
+  socket.on('start', function() {
+    console.log("something");
+    game.init(socket)
   });
 
   socket.on('createSprite', function() {

@@ -25,15 +25,18 @@ Game.prototype.createPacman = function() {
 }
 Game.prototype.init = function() {
   { 
+    console.log("Hello")
     this.createPacman();
     this.createSprite();
-    this.direction = "right"; //default    
+    this.direction = "right"; //default  
+    this.animate();  
   }
 }
 
 Game.prototype.animate = function() {
   setInterval(function() {
     io.sockets.emit('render', this.pacman, this.sprite, this.direction);
+    
   });
 };
 
