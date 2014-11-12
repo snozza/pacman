@@ -13,11 +13,11 @@
 
     $(document).ready(function(){
 
+      var socket = io();
+
       $(document).one('click', 'canvas', function() {
         socket.emit('start');
       });
-
-      var socket = io();
 
       var canvas = $("#canvas")[0];
       var context = canvas.getContext("2d");
@@ -105,15 +105,8 @@
       //keyboard controls
       $(document).keydown(function(event){
         var key = event.which;
-        var direction;
-
-        if(key == "37") direction = "left";
-        else if(key == "38") direction = "up";
-        else if(key == "39") direction = "right";
-        else if(key == "40") direction = "down";
-
-        socket.emit('direction', direction);
-      })
+        socket.emit('keypress', key);
+      });
 
     });
 
