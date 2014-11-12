@@ -8,7 +8,8 @@
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
 
     <canvas width="500" height="500" style="border:solid 1px #000;" id="canvas"></canvas>
-    <script> 
+    <script>
+
     $(document).ready(function(){
 
       var canvas = $("#canvas")[0];
@@ -39,6 +40,7 @@
         pacman = {
           x: 100,
           y: 100,
+          speed: 10,
           mouthOpenValue: 40,
           mouthPosition: -1
         }
@@ -64,50 +66,46 @@
         
         //The movement code for pacman.
         
-        if (pac.x === width/pacRadius || pac.y === height/pacRadius)
-        else if(direction == "right") pacman.x++;
-        else if(direction == "left") pacman.x--;
-        else if(direction == "up") pacman.y--;
-        else if(direction == "down") pacman.y++;
-        
-       //Pacman needs to stop if he hits a wall.      
-        // if(nx == -1 || pacman == width/cw || ny == -1 || ny == height/cw)
+
+        if(direction == "right") pacman.x+= pacman.speed;
+        else if(direction == "left") pacman.x-= pacman.speed;
+        else if(direction == "up") pacman.y-= pacman.speed;
+        else if(direction == "down") pacman.y+= pacman.speed;
   
-        paintPacman(pacman.x, pacman.y, pacman.mouthOpenValue, 
-          pacman.mouthPosition, direction);  
+        paintPacman(pacman.x, pacman.y);  
         
       }
 
       //Lets first create a generic function to paint cells
-      function paintPacman(x, y, mouthOpenValue, mouthPosition, direction)
+      function paintPacman(x, y)
       {
-        if (mouthOpenValue <= 0) {
-          mouthPosition = 1;
+        if (pacman.mouthOpenValue <= 0) {
+          pacman.mouthPosition = 1;
         }
-        else if (mouthOpenValue >= 40){
-          mouthPosition = -1;
+        else if (pacman.mouthOpenValue >= 40){
+          pacman.mouthPosition = -1;
         }
-        mouthOpenValue += (2 * mouthPosition);
+        pacman.mouthOpenValue += (5 * pacman.mouthPosition);
         context.beginPath();
         if (direction === 'right') {
           context.arc(x, y, 20, 
-            (Math.PI / 180) * mouthOpenValue, 
-            (Math.PI / 180) * (360 - mouthOpenValue));
+            (Math.PI / 180) * pacman.mouthOpenValue, 
+            (Math.PI / 180) * (360 - pacman.mouthOpenValue));
         }
         else if (direction === 'left'){
           context.arc(x, y, 20,
-            (Math.PI / 180) * (179 - mouthOpenValue), //to stop flicker dont draw 180 to 180
-            (Math.PI / 180) * (180 + mouthOpenValue), true); 
+            (Math.PI / 180) * (179 - pacman.mouthOpenValue), //to stop flicker dont draw 180 to 180
+            (Math.PI / 180) * (180 + pacman.mouthOpenValue), true); 
         }
         else if (direction === 'up'){
           context.arc(x, y, 20,
-            (Math.PI / 180) * (179 - mouthOpenValue), //to stop flicker dont draw 180 to 180
-            (Math.PI / 180) * (180 + mouthOpenValue), true); 
+            (Math.PI / 180) * (179 - pacman.mouthOpenValue),
+            (Math.PI / 180) * (180 + pacman.mouthOpenValue), true); 
         }
         else {
           context.arc(x, y, 20,
-            (Math.PI / 180) * (179 - mouthOpenValue), //to stop flicker dont draw 180 to 180
-            (Math.PI / 180) * (180 + mouthOpenValue), true); 
+            (Math.PI / 180) * (179 - pacman.mouthOpenValue),
+            (Math.PI / 180) * (180 + pacman.mouthOpenValue), true); 
         }
 
 
@@ -127,6 +125,7 @@
       })
 
     });
+
   
   
     </script>
