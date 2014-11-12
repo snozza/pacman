@@ -73,8 +73,8 @@
         console.log(sprite.x * 20)
         console.log(pacman.x)
 
-        if (pacman.x <= (sprite.x * 20) && (sprite.x * 20) <= (pacman.x + pacman.clearance)) {
-          if(pacman.y <= (sprite.y * 20) && (sprite.y * 20) <= (pacman.y + pacman.clearance)) {   
+        if ((pacman.x - pacman.radius) <= (sprite.x * 20) && (sprite.x * 20) <= (pacman.x + pacman.radius)) {
+          if((pacman.y - pacman.radius) <= (sprite.y * 20) && (sprite.y * 20) <= (pacman.y + pacman.radius)) {   
             score++;
             createSprite();
           }
