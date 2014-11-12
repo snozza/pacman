@@ -17,17 +17,16 @@
       var width = $("#canvas").width();
       var height = $("#canvas").height();
       
-      //Lets save the cell width in a variable for easy control
-      var pacRadius = 10;
-      var direction;
-      var food;
+      var pacman;
+      var sprite;
+      var direction;    
       var score;
       
       function init()
       {
         direction = "right"; //default
-        create_pacman();
-        // create_sprite();
+        createPacman();
+        createSprite();
         score = 0;
         
         if(typeof game_loop != "undefined") clearInterval(game_loop);
@@ -35,29 +34,29 @@
       }
       init();
       
-      function create_pacman()
+      function createPacman()
       {
         pacman = {
-          x: 100,
-          y: 100,
+          x: 5,
+          y: 20,
+          radius: 10,
+          clearance: 20,
           speed: 10,
           mouthOpenValue: 40,
           mouthPosition: -1
         }
       }
       
-      //Lets create the food now
-      // function create_sprite()
-      // {
-      //   food = {
-      //     x: Math.round(Math.random()*(width-cw)/cw), 
-      //     y: Math.round(Math.random()*(height-cw)/cw), 
-      //   };
-      //   //This will create a cell with x/y between 0-44
-      //   //Because there are 45(450/10) positions accross the rows and columns
-      // }
+      //dots that pacman eats
+      function createSprite()
+      {
+        sprite = {
+          size: 20,
+          x: Math.round(Math.random() * (width - 20) / 20), 
+          y: Math.round(Math.random() * (height - 20) / 20),
+        };
+      }
       
-      //Lets paint the snake now
       function render()
       {
       
@@ -66,17 +65,27 @@
         
         //The movement code for pacman.
         
-
         if(direction == "right") pacman.x+= pacman.speed;
         else if(direction == "left") pacman.x-= pacman.speed;
         else if(direction == "up") pacman.y-= pacman.speed;
         else if(direction == "down") pacman.y+= pacman.speed;
+
+        console.log(sprite.x * 20)
+        console.log(pacman.x)
+
+        if (pacman.x <= (sprite.x * 20) && (sprite.x * 20) <= (pacman.x + pacman.clearance)) {
+          if(pacman.y <= (sprite.y * 20) && (sprite.y * 20) <= (pacman.y + pacman.clearance)) {   
+            score++;
+            createSprite();
+          }
+        }
   
-        paintPacman(pacman.x, pacman.y);  
-        
+
+        paintPacman(pacman.x, pacman.y);
+        paintSprite(sprite.x, sprite.y, sprite.size);
       }
 
-      //Lets first create a generic function to paint cells
+  
       function paintPacman(x, y)
       {
         if (pacman.mouthOpenValue <= 0) {
@@ -112,6 +121,13 @@
         context.lineTo(x, y);
         context.fillStyle = '#000';
         context.fill();
+      }
+
+      function paintSprite(x, y, size) {
+        context.fillStyle = "blue";
+        context.fillRect(x*size, y*size, size, size);
+        context.strokeStyle = "white";
+        context.strokeRect(x*size, y*size, size, size);
       }
       
       //keyboard controls
