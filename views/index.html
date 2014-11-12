@@ -37,11 +37,6 @@
         context.fillRect(0, 0, width, height);
         
         //The movement code for pacman.
-        
-        if(pacman.direction == "right") pacman.x+= pacman.speed;
-        else if(pacman.direction == "left") pacman.x-= pacman.speed;
-        else if(pacman.direction == "up") pacman.y-= pacman.speed;
-        else if(pacman.direction == "down") pacman.y+= pacman.speed;
 
         if ((pacman.x - pacman.clearance) <= (sprite.x * 20) && (sprite.x * 20) <= (pacman.x + pacman.clearance)) {
           if((pacman.y - pacman.clearance) <= (sprite.y * 20) && (sprite.y * 20) <= (pacman.y + pacman.clearance)) {   
@@ -49,7 +44,7 @@
             socket.emit('createSprite');
           }
         }
-  
+        
         paintPacman(pacman);
         paintSprite(sprite.x, sprite.y, sprite.size);
         var score_text = "Score: " + score;
@@ -89,7 +84,6 @@
             (Math.PI / 180) * (180 + pacman.mouthOpenValue), true); 
         }
 
-        console.log("you made it here");
         context.lineTo(pacman.x, pacman.y);
         context.fillStyle = '#000';
         context.fill();

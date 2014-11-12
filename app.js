@@ -16,7 +16,7 @@ io.on('connection', function(socket) {
 
   socket.on('start', function() {
     console.log("something");
-    game.init(socket)
+    game.init(io)
   });
 
   socket.on('createSprite', function() {
@@ -26,7 +26,6 @@ io.on('connection', function(socket) {
   socket.on('keypress', function(key) {
     game.keypress(key);
   });
-
 
 
 });
