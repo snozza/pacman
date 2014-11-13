@@ -34,6 +34,16 @@ Game.prototype.pacmanMove = function() {
   else if(this.pacman.direction == "down") this.pacman.y+= this.pacman.speed;
 }
 
+Game.prototype.pacmanBite = function() {
+  if (this.pacman.mouthOpenValue <= 0) {
+      this.pacman.mouthPosition = 1;
+  }
+  else if (this.pacman.mouthOpenValue >= 40){
+    this.pacman.mouthPosition = -1;
+  }
+  this.pacman.mouthOpenValue += (5 * this.pacman.mouthPosition);
+}
+
 Game.prototype.init = function(io) {
   {
     this.io = io;
@@ -46,6 +56,7 @@ Game.prototype.init = function(io) {
 Game.prototype.animate = function() {
   var _this = this
   setInterval(function() {
+    _this.pacmanBite()
     _this.pacmanMove()
     _this.io.sockets.emit('render', _this.pacman, _this.sprite);
   }, 60)
