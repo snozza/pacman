@@ -54,7 +54,8 @@
       _(
     }
 
-    Game.prototype.
+    Game.prototype.setUniqueSession = function(sessionID) {
+      this.sessionid || (this.sessionid = sessionid);
 
     Game.prototype.listenForUpdate = function() {
       _this = this;
