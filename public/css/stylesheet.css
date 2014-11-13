@@ -16,7 +16,6 @@ body{
   left: 0;
   right: 0;
   z-index: 5000;
-  overflow: hidden;
 }
 #logo-container{
   width: 778px;
