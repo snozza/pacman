@@ -33,9 +33,7 @@
         render(pacman, sprite, direction);
       });
 
-      socket.on('game:over', function() {
-        // scoreText = 'High Score - Click to play again';
-        // paintScore(scoreText);
+      socket.on('game:over', function() {      
         startGame();
       });
       
@@ -53,7 +51,7 @@
       function paintPacman(pacman)
       {
         
-        
+
         context.beginPath();
         if (pacman.direction === 'right') {
           context.arc(pacman.x, pacman.y, 20, 

@@ -14,11 +14,13 @@ app.get('/', function(req, res) {
 
 io.on('connection', function(socket) {
 
+  console.log("someone joined");
+
   socket.on('start', function() {
-    console.log("something");
+    console.log("Game started");
     game.init(io)
   });
-  
+
   socket.on('keypress', function(key) {
     game.keypress(key);
   });
