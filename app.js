@@ -18,8 +18,6 @@ app.get('/', function(req, res) {
 });
 
 function init() {
-  players = [];
-
   setEventHandlers();
 
   server.listen(8080, function() {
@@ -31,18 +29,12 @@ var setEventHandlers = function() {
   io.on("connection", onSocketConnection);
 };
 
-function onSocketConnection(client) {
-  util.log("New player connected" + client.id)
+function onSocketConnection(socket) {
+  util.log("New player connected" + socket.id)
 
-  client.on('new:player', onNewPlayer);
-  
-  client.on('start', function() {
+  socket.on('start', onNewPlayer)
 
-      console.log("Game started");
-      game.newPlayer(client);
-  });
-
-  client.on("disconnect", onClientDisconnect);
+  socket.on("disconnect", onClientDisconnect);
 }
 
 function onClientDisconnect() {

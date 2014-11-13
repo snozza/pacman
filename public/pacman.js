@@ -1,40 +1,38 @@
 function Pacman(id) {
-  this.id = id
+  this.id = id;
+  this.width = 500;
+  this.height = 500;
+  this.radius = 10;
+  this.clearance = this.radius * 2;
+  this.speed = 5;
+  this.mouthOpenValue = 40;
+  this.mouthPosition = -1;
 }
 
-Pacman.prototype.render  = function(context) {
-  context.fillStyle = "white";
-  context.fillRect(0, 0, width, height);
-
+Pacman.prototype.render = function(context, status) {
   context.beginPath();
-  if (pacman.direction === 'right') {
-    context.arc(pacman.x, pacman.y, 20, 
-      (Math.PI / 180) * pacman.mouthOpenValue, 
-      (Math.PI / 180) * (360 - pacman.mouthOpenValue));
+  if (status.direction === 'right') {
+    context.arc(status.x, status.y, 20, 
+      (Math.PI / 180) * this.mouthOpenValue, 
+      (Math.PI / 180) * (360 - this.mouthOpenValue));
   }
-  else if (pacman.direction === 'left'){
-    context.arc(pacman.x, pacman.y, 20,
-      (Math.PI / 180) * (179 - pacman.mouthOpenValue), //to stop flicker dont draw 180 to 180
-      (Math.PI / 180) * (180 + pacman.mouthOpenValue), true); 
+  else if (status.direction === 'left'){
+    context.arc(status.x, status.y, 20,
+      (Math.PI / 180) * (179 - this.mouthOpenValue), //to stop flicker dont draw 180 to 180
+      (Math.PI / 180) * (180 + this.mouthOpenValue), true); 
   }
-  else if (pacman.direction === 'up'){
-    context.arc(pacman.x, pacman.y, 20,
-      (Math.PI / 180) * (269 - pacman.mouthOpenValue),
-      (Math.PI / 180) * (270 + pacman.mouthOpenValue), true); 
+  else if (status.direction === 'up'){
+    context.arc(status.x, status.y, 20,
+      (Math.PI / 180) * (269 - this.mouthOpenValue),
+      (Math.PI / 180) * (270 + this.mouthOpenValue), true); 
   }
   else {
-    context.arc(pacman.x, pacman.y, 20,
-      (Math.PI / 180) * (89 - pacman.mouthOpenValue),
-      (Math.PI / 180) * (90 + pacman.mouthOpenValue), true); 
+    context.arc(status.x, status.y, 20,
+      (Math.PI / 180) * (89 - this.mouthOpenValue),
+      (Math.PI / 180) * (90 + this.mouthOpenValue), true); 
   }
 
-  context.lineTo(pacman.x, pacman.y);
+  context.lineTo(status.x, status.y);
   context.fillStyle = '#000';
   context.fill();
 }
-
-// Pacman.prototype.paint = function() {
-//   {     
-  
-       
-//   }   
