@@ -45,7 +45,8 @@
         context.beginPath();
         paintPacman(pacman);
         paintSprite(sprite.x, sprite.y, sprite.size);
-        paintScore(scoreText);      
+        paintScore(scoreText);
+        renderWall()      
       }
 
   
@@ -95,6 +96,40 @@
         var key = event.which;
         socket.emit('keypress', key);
       });
+
+
+      var leftWall = {
+          x: 0,
+          y: 0,
+          width: 4,
+          height: 500
+      }
+
+      var rightTopWall = {
+          x: 496,
+          y: 0,
+          width: 4,
+          height: 500
+        }
+
+       var leftTubeTop = {
+          x: 0,
+          y: 0,
+          width: 500,
+          height: 4
+        }
+
+      var renderWall = function () {
+        var lines = [leftWall, rightTopWall, leftTubeTop];
+        for (var i = 0; i < lines.length; i++) {
+          drawLine(lines[i]);
+        }
+      }
+
+      function drawLine (line) {
+        context.fillStyle   = "111111";
+        context.fillRect(line.x, line.y, line.width, line.height);
+      }
 
     });
 
