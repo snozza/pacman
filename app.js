@@ -3,8 +3,8 @@ var express = require('express');
 var app = express();
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
-var Game = require('./lib/Game-server');
-var Pacman = require('./lib/pacman-server');
+var Game = require('./lib/game');
+var Pacman = require('./lib/pacman');
 
 var socket;
 var players;

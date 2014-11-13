@@ -1,0 +1,84 @@
+<html>
+  <head>
+    <title>Pacman</title>
+    <meta charset="utf8">
+    <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="/css/stylesheet.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/js/canvas.js"></script>
+    <script src="/js/interface.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <article id="header-container">
+        <div id="logo-container">
+          <article id="logo">
+            <img src="/images/hacman_logo_cropped.png"/>
+          </article>
+        </div>
+        <article id="ghost-banner-left">
+          <img src="/images/left_ghosts_banner.png"/>
+        </article>
+        <article id="ghost-banner-right">
+          <img src="/images/right_ghosts_banner.png"/>
+        </article>
+      </article>
+    </header>
+    <main>
+    <section id="board-container">
+      <article class="board">
+        <canvas id="canvas" width="900" height="900"></canvas>
+      </article>
+    </section>
+      <section id="board-section">
+        <section id="player-score-container">
+          <article id="player-score">
+            <h1 id="player-name">ENTER YOUR NAME</h1>
+            <input type="text" name="player-name" id="player-name-form">
+            <input type="submit" value="ok man" id="player-name-button">
+            <article id="current-score">
+              <p><span id="life-count">3</span> LIVES</p>
+              <p><span id="point-count">0</span> POINTS</p>
+              </article>
+            </article>
+          </article>
+        </section>
+        <section id="score-container">
+          <article id="score-board">
+            <h1>SCORE BOARD</h1>
+              <article class="score-board-list">
+                <ul>
+                  <li> <h2>Player</h2></li>
+                  <li>Denise</li>
+                  <li>Snozza</li>
+                  <li>Pablo</li>
+                  <li>Sandrine</li>
+                </ul>
+              </article>
+              <article class="score-board-list" id="stars">
+                <ul>
+                  <li> <h2>Score</h2></li>
+                  <li>★★★★★</li>
+                  <li>★★★★★</li>
+                  <li>★★★★★</li>
+                  <li>★★★★★</li>
+                </ul>
+              </article>
+          </article>
+        </section>
+      </section>
+    </main>
+
+  
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+  
+  <script src="/js/game.js"></script>
+  <script src="/js/pacman.js"></script>
+  
+
+  </body>
+</html>
