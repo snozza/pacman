@@ -29,7 +29,7 @@
       var height = $("#canvas").height();
       var score_text;
 
-      socket.on('render', function(pacman, sprite, direction) {
+      socket.on('render', function(pacman, sprite, direction) {     
         render(pacman, sprite, direction);
       });
 
@@ -42,6 +42,7 @@
         scoreText = "Score: " + score;     
         context.fillStyle = "white";
         context.fillRect(0, 0, width, height);
+        context.beginPath();
         paintPacman(pacman);
         paintSprite(sprite.x, sprite.y, sprite.size);
         paintScore(scoreText);      
@@ -51,8 +52,6 @@
       function paintPacman(pacman)
       {
         
-
-        context.beginPath();
         if (pacman.direction === 'right') {
           context.arc(pacman.x, pacman.y, 20, 
             (Math.PI / 180) * pacman.mouthOpenValue, 
