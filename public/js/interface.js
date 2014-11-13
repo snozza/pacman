@@ -7,6 +7,4 @@ $(document).ready(function(){
     $('#player-name-button').hide();
   });
 
-
-
 })

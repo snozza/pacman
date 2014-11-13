@@ -3,8 +3,8 @@ function Game() {
   this.sprite;
   this.socket;
   this.score = 0;
-  this.width = 500;
-  this.height = 500;
+  this.width = 900;
+  this.height = 900;
 }
 
 Game.prototype.createSprite = function() {
