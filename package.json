@@ -2,8 +2,7 @@
   "name": "pacman",
   "version": "1.0.0",
   "description": "Pacman in HTML5 and nodejs",
-  "main": "app.js
-  ",
+  "main": "app.js",
   "scripts": {
     "test": "mocha"
   },
