@@ -20,7 +20,7 @@
       this.context = context;
       this.width = this.canvas.width;
       this.height = this.canvas.height;
-      this.pacmen = {};
+      this.players = {};
       this.uniqueSession = null;
     }
 
@@ -53,6 +53,8 @@
       this.setUniqueSession(this.socket.io.engine.id);
       _(
     }
+
+    Game.prototype.
 
     Game.prototype.listenForUpdate = function() {
       _this = this;
