@@ -5,7 +5,7 @@ function Pacman(id) {
 Pacman.prototype.render  = function(context) {
   context.fillStyle = "white";
   context.fillRect(0, 0, width, height);
-  
+
   context.beginPath();
   if (pacman.direction === 'right') {
     context.arc(pacman.x, pacman.y, 20, 
@@ -33,10 +33,8 @@ Pacman.prototype.render  = function(context) {
   context.fill();
 }
 
-Pacman.prototype.render = function() {
+Pacman.prototype.paint = function() {
   {     
   
-    paintPacman(pacman);
-    paintSprite(sprite.x, sprite.y, sprite.size);
-    paintScore(scoreText);      
+       
   }   

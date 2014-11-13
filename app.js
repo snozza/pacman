@@ -38,11 +38,7 @@ function onSocketConnection(client) {
   
   client.on('start', function() {
       console.log("Game started");
-      game.init(io)
-    });
-
-  client.on('keypress', function(key) {
-    this.pacman.changeDirection(key);
+      game.init();
   });
 
   client.on("disconnect", onClientDisconnect);
@@ -53,17 +49,7 @@ function onClientDisconnect() {
 }
 
 function onNewPlayer() {
-  var existingPacman;
-  var newPacman = new Pacman()
-  newPacman.id = this.id;
-  this.broadcast.emit("new pacman", {newPacman:});
-
-  for (var i = 0; i < players.length; i++) {
-    existingPacman = players[i];
-    this.emit("new pacman", {id: existingPacman})
-  }
-
-  players.push(newPacman);
+  game.newPlayer(this);
 }
 
 

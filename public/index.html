@@ -18,9 +18,10 @@
       this.socket = socket;
       this.canvas = canvas;
       this.context = context;
-      this.width = canvas.width();
-      this.height = canvas.height();
+      this.width = this.canvas.width;
+      this.height = this.canvas.height;
       this.pacmen = {};
+      this.uniqueSession = null;
     }
 
     Game.prototype.startGame = function() {
@@ -39,39 +40,54 @@
       };
     }
 
+    Game.prototype.linkToGameServer = function() {
+      var _this = this;
+      this.socket.on('gameDetails', function(gameID) {
+        _this.applyLinkToGame(gameID)
+      });
+    }
+
+    Game.prototype.applyLinkToGame = function(gameID) {
+      var _this = this;
+      console.log(this.socket.io.engine.id);
+      this.setUniqueSession(this.socket.io.engine.id);
+      _(
+    }
+
     Game.prototype.listenForUpdate = function() {
       _this = this;
-      socket.on('update', function(pacman, sprite, direction) {     
-        _this.renderPacmen;  
-        _thi.paintPacman(pacman);
-        paintSprite(sprite.x, sprite.y, sprite.size);
-        paintScore(scoreText);   
+      socket.on('update', function(status) {     
+        _this.renderPlayers(status);
+        paintSprite(sprite.x, sprite.y, sprite.size);  
+        // paintScore(scoreText);   
       });
 
-      socket.on('game:over', function() {      
-        startGame();
-      });
+      // socket.on('game:over', function() {      
+      //   startGame();
+      // });
     };
 
-    Game.prototype.renderPacmen = function () {
-      render(pacman, sprite, direction);
-        
-        
+    Game.prototype.renderPlayers = function (status) { 
 
-        function paintSprite(x, y, size) {
-          context.fillStyle = "blue";
-          context.fillRect(x*size, y*size, size, size);
-          context.strokeStyle = "white";
-          context.strokeRect(x*size, y*size, size, size);
-        }
+    }
 
-        function paintScore(scoreText) {
-          context.font="20px Georgia";
-          context.fillText(scoreText, 5, height - 5);
-        }
         
 
-      });
+    Game.prototype.paintSprite = function(x, y, size) {
+      context.fillStyle = "blue";
+      context.fillRect(x*size, y*size, size, size);
+      context.strokeStyle = "white";
+      context.strokeRect(x*size, y*size, size, size);
+    }
+
+        // function paintScore(scoreText) {
+        //   context.font="20px Georgia";
+        //   context.fillText(scoreText, 5, height - 5);
+        // }
+        
+
+    };
+
 
       var canvas = $("#canvas")[0];
       var context = canvas.getContext("2d");
@@ -79,7 +95,7 @@
       var game = new Game(canvas, context, socket);
       game.startGame()
 
-
+  })
   
   
     </script>
