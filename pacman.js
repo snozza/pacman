@@ -10,7 +10,7 @@ function Game() {
 Game.prototype.createSprite = function() {
   this.sprite = {
     size: 20,
-    x: Math.round(Math.random() * (this.width - 20) / 20), 
+    x: Math.round(Math.random() * (this.width - 20) / 20),
     y: Math.round(Math.random() * (this.height - 20) / 20),
   };
 }
@@ -28,7 +28,7 @@ Game.prototype.createPacman = function() {
   }
 }
 
-Game.prototype.pacmanMove = function(pacman) { 
+Game.prototype.pacmanMove = function(pacman) {
   if(pacman.direction == "right") pacman.x+= pacman.speed;
   else if(pacman.direction == "left") pacman.x-= pacman.speed;
   else if(pacman.direction == "up") pacman.y-= pacman.speed;
@@ -47,7 +47,7 @@ Game.prototype.pacmanBite = function(pacman) {
 
 Game.prototype.isSpriteEaten = function(pacman, sprite) {
   if ((pacman.x - pacman.clearance) <= (sprite.x * 20) && (sprite.x * 20) <= (pacman.x + pacman.clearance)) {
-    if((pacman.y - pacman.clearance) <= (sprite.y * 20) && (sprite.y * 20) <= (pacman.y + pacman.clearance)) {   
+    if((pacman.y - pacman.clearance) <= (sprite.y * 20) && (sprite.y * 20) <= (pacman.y + pacman.clearance)) {
       this.score++;
       this.createSprite();
     }
@@ -65,7 +65,7 @@ Game.prototype.init = function(io) {
   {
     this.io = io;
     this.createPacman();
-    this.createSprite();   
+    this.createSprite();
     this.animate();
   }
 }
