@@ -37,8 +37,9 @@ function onSocketConnection(client) {
   client.on('new:player', onNewPlayer);
   
   client.on('start', function() {
+
       console.log("Game started");
-      game.init();
+      game.newPlayer(client);
   });
 
   client.on("disconnect", onClientDisconnect);

@@ -33,8 +33,8 @@ Pacman.prototype.render  = function(context) {
   context.fill();
 }
 
-Pacman.prototype.paint = function() {
-  {     
+// Pacman.prototype.paint = function() {
+//   {     
   
        
-  }   
+//   }   

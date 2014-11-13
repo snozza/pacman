@@ -7,6 +7,7 @@
   <script src="/socket.io/socket.io.js"></script>
 
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+  <script type="text/javascript" src="/pacman.js"> </script>
 
     <canvas width="500" height="500" style="border:solid 1px #000;" id="canvas"></canvas>
     <script>
@@ -30,13 +31,14 @@
     }
 
     Game.prototype.listenForKey = function() {
+      _this = this
       $(document).keydown(function(event){
         var key = event.which;
         keyInput(key);
       });
 
       function keyInput(key) {
-        socket.emit('keypress', key);
+        _this.socket.emit('keypress', {keypress: key, socket_id: _this.uniqueSession});
       };
     }
 
@@ -51,11 +53,19 @@
       var _this = this;
       console.log(this.socket.io.engine.id);
       this.setUniqueSession(this.socket.io.engine.id);
-      _(
+      console.log(this.uniqueSession)
+      _(gameID.playerIDs).each(function (id) {
+        _this.newPlayer(id)
+      });
     }
 
-    Game.prototype.setUniqueSession = function(sessionID) {
-      this.sessionid || (this.sessionid = sessionid);
+    Game.prototype.setUniqueSession = function(uniqueID) {
+      this.sessionid =  this.sessionid || uniqueID;
+    }
+
+    Game.prototype.newPlayer = function(id) {
+      this.players[id] = new Pacman(id);
+    }
 
     Game.prototype.listenForUpdate = function() {
       _this = this;
@@ -86,11 +96,7 @@
         // function paintScore(scoreText) {
         //   context.font="20px Georgia";
         //   context.fillText(scoreText, 5, height - 5);
-        // }
-        
-
-    };
-
+        // }   
 
       var canvas = $("#canvas")[0];
       var context = canvas.getContext("2d");
