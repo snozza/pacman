@@ -2,6 +2,7 @@ function Game() {
   this.pacman;
   this.sprite;
   this.socket;
+  this.score = 0;
   this.width = 500;
   this.height = 500;
 }
@@ -27,14 +28,14 @@ Game.prototype.createPacman = function() {
   }
 }
 
-Game.prototype.pacmanMove = function() { 
-  if(this.pacman.direction == "right") this.pacman.x+= this.pacman.speed;
-  else if(this.pacman.direction == "left") this.pacman.x-= this.pacman.speed;
-  else if(this.pacman.direction == "up") this.pacman.y-= this.pacman.speed;
-  else if(this.pacman.direction == "down") this.pacman.y+= this.pacman.speed;
+Game.prototype.pacmanMove = function(pacman) { 
+  if(pacman.direction == "right") pacman.x+= pacman.speed;
+  else if(pacman.direction == "left") pacman.x-= pacman.speed;
+  else if(pacman.direction == "up") pacman.y-= pacman.speed;
+  else if(pacman.direction == "down") pacman.y+= pacman.speed;
 }
 
-Game.prototype.pacmanBite = function() {
+Game.prototype.pacmanBite = function(pacman) {
   if (this.pacman.mouthOpenValue <= 0) {
       this.pacman.mouthPosition = 1;
   }
@@ -42,6 +43,22 @@ Game.prototype.pacmanBite = function() {
     this.pacman.mouthPosition = -1;
   }
   this.pacman.mouthOpenValue += (5 * this.pacman.mouthPosition);
+}
+
+Game.prototype.isSpriteEaten = function(pacman, sprite) {
+  if ((pacman.x - pacman.clearance) <= (sprite.x * 20) && (sprite.x * 20) <= (pacman.x + pacman.clearance)) {
+    if((pacman.y - pacman.clearance) <= (sprite.y * 20) && (sprite.y * 20) <= (pacman.y + pacman.clearance)) {   
+      this.score++;
+      this.createSprite();
+    }
+  }
+}
+
+Game.prototype.checkScore = function () {
+  if (this.score === 5) {
+    this.score = 0;
+    this.io.sockets.emit('game:over');
+  }
 }
 
 Game.prototype.init = function(io) {
@@ -53,12 +70,15 @@ Game.prototype.init = function(io) {
   }
 }
 
+
 Game.prototype.animate = function() {
   var _this = this
   setInterval(function() {
-    _this.pacmanBite()
-    _this.pacmanMove()
-    _this.io.sockets.emit('render', _this.pacman, _this.sprite);
+    _this.checkScore();
+    _this.isSpriteEaten(_this.pacman, _this.sprite)
+    _this.pacmanBite(_this.pacman)
+    _this.pacmanMove(_this.pacman)
+    _this.io.sockets.emit('render', _this.pacman, _this.sprite, _this.score);
   }, 60)
 };
 
