@@ -11,6 +11,7 @@ var players;
 
 var game = new Game();
 game.generateDots();
+game.init()
 
 app.use(express.static(__dirname + '/public'));
 
