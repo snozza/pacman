@@ -21,6 +21,9 @@ $(document).ready(function(){
     _this = this
     $(document).keydown(function(event){
       var key = event.which;
+      if ([37, 38, 39, 40].indexOf(key) > -1) {
+        event.preventDefault();
+      }
       _this.socket.emit('keypress', {keypress: key, socket_id: _this.clientID});
     });
   }
@@ -52,13 +55,8 @@ $(document).ready(function(){
     _this = this;
     socket.on('update', function(status) {     
       _this.renderAll(status);
-      // this.paintSprite(sprite.x, sprite.y, sprite.size);  
-      // paintScore(scoreText);   
     });
 
-    // socket.on('game:over', function() {      
-    //   startGame();
-    // });
   };
 
   Game.prototype.renderAll = function (statuses) {
@@ -70,14 +68,6 @@ $(document).ready(function(){
     }); 
 
   }
-
-  // Game.prototype.drawGrid = function () {
-  //    context.fillStyle = "white";
-  //    context.fillRect(0, 0, this.width, this.height);
-  //  }
-
-
-
       
 
   // Game.prototype.paintSprite = function(x, y, size) {
