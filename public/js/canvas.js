@@ -1,6 +1,7 @@
-function drawGrid() {
+function drawGrid(dots) {
     var cnv = document.getElementById("canvas");
     var ctx = cnv.getContext('2d');
+
 
     var gridOptions = {
         minorLines: {
@@ -12,14 +13,15 @@ function drawGrid() {
         }
     };
 
+    drawDots(dots, cnv, gridOptions.majorLines);
     drawOuterWalls(cnv, gridOptions.minorLines);
     drawOuterWalls(cnv, gridOptions.majorLines);
-    drawDots(cnv, gridOptions.majorLines);
+    
     // drawGridLines(cnv, gridOptions.majorLines);
     return;
 }
 
-function drawDots(cnv, lineOptions) {
+function drawDots(dots, cnv, lineOptions) {
     var iWidth = cnv.width;
     var iHeight = cnv.height;
     var iCount = null;
@@ -34,14 +36,38 @@ function drawDots(cnv, lineOptions) {
 
     ctx.fillStyle = 'orange';
 
-
-    for (i = 1; i <= iCount; i++) {
-        for (j = 1; j <= iCount; j++) {
-             x = ((i + smallSquare) * lineOptions.separation) -3;
-            y = ((j + smallSquare)* lineOptions.separation ) -3;
-            ctx.fillRect(x,y, 8, 8)
-        }
+    for (i = 0; i < dots.length; i++) {
+        ctx.fillRect(dots[i].x -3, dots[i].y -3, 8, 8)
     }
+
+
+    // for (i = 1; i <= iCount; i++) {
+    //     for (j = 1; j <= iCount; j++) {
+    //          x = ((i + smallSquare) * lineOptions.separation) -3;
+    //         y = ((j + smallSquare)* lineOptions.separation ) -3;          
+    //         ctx.fillRect(x,y, 8, 8)
+    //     }
+    // }
+
+    var Nest = {
+        x: 390,
+        y: 390,
+        width:120,
+        height:150,
+    }
+
+    var Door = {
+        x: 510,
+        y: 450,
+        width:30,
+        height:30,
+    }
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(Nest.x, Nest.y, Nest.width, Nest.height);
+    ctx.fillRect(Door.x, Door.y, Door.width, Door.height);
+    
+    
 
 }
 

@@ -61,9 +61,10 @@ $(document).ready(function(){
 
   Game.prototype.renderAll = function (statuses) {
     _this = this;
+    console.log(statuses)
     context.clearRect(0, 0, this.width, this.height);
-    drawGrid(context)
-    _(statuses).each(function(status) {
+    drawGrid(statuses.maze)
+    _(statuses.players).each(function(status) {
       _this.players[status.id].render(context, status)
     }); 
 

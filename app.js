@@ -10,6 +10,7 @@ var socket;
 var players;
 
 var game = new Game();
+game.generateDots();
 
 app.use(express.static(__dirname + '/public'));
 
