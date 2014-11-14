@@ -15,6 +15,7 @@ $(document).ready(function(){
     this.listenForKey();
     this.linkToGameServer();
     this.listenForUpdate();
+    this.listenForScore();
   }
 
   Game.prototype.listenForKey = function() {
@@ -61,7 +62,6 @@ $(document).ready(function(){
 
   Game.prototype.renderAll = function (statuses) {
     _this = this;
-    console.log(statuses)
     context.clearRect(0, 0, this.width, this.height);
     drawGrid(statuses.maze)
     _(statuses.players).each(function(status) {
@@ -69,20 +69,13 @@ $(document).ready(function(){
     }); 
 
   }
+
+  Game.prototype.listenForScore = function() {
+    this.socket.on('update:score', function(score) {
+      $("#point-count").text(score);
+    });
+  }
       
-
-  // Game.prototype.paintSprite = function(x, y, size) {
-  //   context.fillStyle = "blue";
-  //   context.fillRect(x*size, y*size, size, size);
-  //   context.strokeStyle = "white";
-  //   context.strokeRect(x*size, y*size, size, size);
-  // }
-
-      // function paintScore(scoreText) {
-      //   context.font="20px Georgia";
-      //   context.fillText(scoreText, 5, height - 5);
-      // }   
-
   var canvas = $("#canvas")[0];
   var context = canvas.getContext("2d");
   var socket = io();
