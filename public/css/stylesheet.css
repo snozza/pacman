@@ -1,7 +1,7 @@
 body{
   background-color: black;
   text-align: center;
-
+  font-family: 'Press Start 2P', cursive;
 }
 
 
@@ -81,7 +81,6 @@ body{
 /*===========SCORE BOARDS===========================*/
 
 #board-section{
-  font-family: 'Press Start 2P', cursive;
   display: block;
   overflow: hidden;
   color: white;
