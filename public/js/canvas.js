@@ -23,7 +23,7 @@ function drawOuterWalls(cnv, lineOptions) {
 
     ctx.strokeStyle = lineOptions.color;
     ctx.strokeWidth = 1;
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = 'blue';
 
     ctx.beginPath();
     ctx.fill();
