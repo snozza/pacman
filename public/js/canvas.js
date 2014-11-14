@@ -40,15 +40,6 @@ function drawDots(dots, cnv, lineOptions) {
         ctx.fillRect(dots[i].x -3, dots[i].y -3, 8, 8)
     }
 
-
-    // for (i = 1; i <= iCount; i++) {
-    //     for (j = 1; j <= iCount; j++) {
-    //          x = ((i + smallSquare) * lineOptions.separation) -3;
-    //         y = ((j + smallSquare)* lineOptions.separation ) -3;          
-    //         ctx.fillRect(x,y, 8, 8)
-    //     }
-    // }
-
     var Nest = {
         x: 390,
         y: 390,
