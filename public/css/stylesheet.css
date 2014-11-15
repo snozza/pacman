@@ -127,6 +127,11 @@ body{
   width: 200px;
   margin-bottom: 2em;
 }
+
+#player-name-button{
+  font-size: 100px;
+}
+
 #current-score{
   font-size: 30px;
 }

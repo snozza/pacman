@@ -6,12 +6,7 @@ var io = require('socket.io')(server);
 var Game = require('./lib/game');
 var Pacman = require('./lib/pacman');
 
-var socket;
-var players;
-
-var game = new Game();
-game.generateDots();
-game.init()
+var game = new Game()
 
 app.use(express.static(__dirname + '/public'));
 
@@ -19,32 +14,42 @@ app.get('/', function(req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
-function init() {
-  setEventHandlers();
+function Server() {
+  this.waitingRoom = [];
+}
+
+Server.prototype.init = function() {
+  this.setEventHandlers();
   server.listen(8080, function() {
     console.log("Server listening on port 8080");
   });
 }
 
-var setEventHandlers = function() {
-  io.on("connection", onSocketConnection);
+Server.prototype.setEventHandlers = function() {
+  _this = this
+  io.on("connection", _this.onSocketConnection);
 };
 
-function onSocketConnection(socket) {
+Server.prototype.onSocketConnection = function(socket) {
   util.log("New player connected" + socket.id)
-  socket.disconnect()
-
-  socket.on('start', onNewPlayer)
-  socket.on("disconnect", onClientDisconnect);
+  if (game.totalPlayers === 4) { 
+    socket.disconnect()
+  } 
+    socket.on('start', onNewPlayer)
+    socket.on("disconnect", onClientDisconnect);
 }
 
-function onClientDisconnect() {
+Server.prototype.onClientDisconnect = function() {
   util.log("Player has disconnected: " + this.id)
 }
 
-function onNewPlayer() {
+Server.prototype.onNewPlayer = function() {
   game.newPlayer(this);
 }
 
-init();
+Server.prototype.startGame = function() {
+  new Game().init();
+}
+
+new Server().init();
 
