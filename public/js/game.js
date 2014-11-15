@@ -79,7 +79,19 @@ $(document).ready(function(){
   var canvas = $("#canvas")[0];
   var context = canvas.getContext("2d");
   var socket = io();
-  var game = new Game(canvas, context, socket);
-  game.startGame()
+  var game;
+
+  socket.on('connect', function() {
+    if (this.connected) {
+      joinGame(this)      
+    } else 
+    alert("game full");
+  });
+
+  function joinGame(socket) {
+    var game = new Game(canvas, context, socket)
+    game.startGame();
+  }
+
 })  
   

@@ -21,7 +21,6 @@ app.get('/', function(req, res) {
 
 function init() {
   setEventHandlers();
-
   server.listen(8080, function() {
     console.log("Server listening on port 8080");
   });
@@ -33,9 +32,9 @@ var setEventHandlers = function() {
 
 function onSocketConnection(socket) {
   util.log("New player connected" + socket.id)
+  socket.disconnect()
 
   socket.on('start', onNewPlayer)
-
   socket.on("disconnect", onClientDisconnect);
 }
 
@@ -46,7 +45,6 @@ function onClientDisconnect() {
 function onNewPlayer() {
   game.newPlayer(this);
 }
-
 
 init();
 
