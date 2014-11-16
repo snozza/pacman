@@ -6,10 +6,12 @@
   this.height = this.canvas.height;
   this.players = {};
   this.clientID = null
+  this.ghost;
 }
 
 Game.prototype.startGame = function() {
   this.socket.emit('start');
+  this.addGhosts();
   this.listenForKey();
   this.linkToGameServer();
   this.listenForUpdate();
@@ -17,6 +19,16 @@ Game.prototype.startGame = function() {
   this.listenForWaiting();
   this.listenForDisconnect();
 }
+
+Game.prototype.addGhosts = function() {
+  this.ghost = {
+    src: 'images/blue_ghost_lookleft.png',
+    x: 840,
+    y: 845,
+    width: 20,
+    height: 20,
+  }
+};
 
 Game.prototype.listenForKey = function() {
   _this = this
@@ -63,7 +75,8 @@ Game.prototype.listenForUpdate = function() {
 Game.prototype.renderAll = function (statuses) {
   _this = this;
   this.context.clearRect(0, 0, this.width, this.height);
-  drawGrid(statuses.maze)
+  drawGrid(statuses.maze);
+  drawGhost(this.ghost, this.context);
   _(statuses.players).each(function(status) {
     _this.players[status.id].render(_this.context, status)
   }); 

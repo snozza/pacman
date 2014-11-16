@@ -28,7 +28,19 @@ function drawGameStatus(message, ctx, width, height) {
 }
 
 
-    
+function drawGhost(ghost, ctx) {
+    placeGhost(ghost, ctx);
+}
+
+function placeGhost(ghost, ctx) {
+    var img = new Image();
+    img.onload = function() {
+        ctx.drawImage(img, ghost.x, ghost.y, ghost.width, ghost.height);
+    };
+    img.src = ghost.src;
+}
+
+
 
 function drawDots(dots, cnv, lineOptions) {
     var iWidth = cnv.width;
