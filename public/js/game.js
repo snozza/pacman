@@ -14,6 +14,8 @@ Game.prototype.startGame = function() {
   this.linkToGameServer();
   this.listenForUpdate();
   this.listenForScore();
+  this.listenForWaiting();
+  this.listenForDisconnect();
 }
 
 Game.prototype.listenForKey = function() {
@@ -37,7 +39,7 @@ Game.prototype.linkToGameServer = function() {
 Game.prototype.applyLinkToGame = function(gameID) {
   var _this = this;
   this.setClientID(this.socket.io.engine.id);
-  _(gameID.IDs).each(function (id) {
+  _(gameID.IDs).each(function(id) {
     _this.newPlayer(id)
   });
 }
@@ -73,6 +75,23 @@ Game.prototype.listenForScore = function() {
     $("#point-count").text(score);
   });
 }
+
+Game.prototype.listenForDisconnect = function() {
+  _this = this;
+  var message = 'Your opponent has quit. Please start a new game';
+  this.socket.on('opponent:disconnect', function() {
+    drawGameStatus(message, _this.context, _this.width, _this.height);
+  });
+};
+
+Game.prototype.listenForWaiting = function() {
+  _this = this;
+  var message = "Waiting for your opponent. Prepare your muscles!";
+  this.socket.on('waiting', function() {
+    drawGameStatus(message, _this.context, _this.width, _this.height);
+  });
+};
+
 
 $(document).ready(function(){
 

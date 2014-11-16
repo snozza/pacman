@@ -2,7 +2,6 @@ function drawGrid(dots) {
     var cnv = document.getElementById("canvas");
     var ctx = cnv.getContext('2d');
 
-
     var gridOptions = {
         minorLines: {
             color: 'white'
@@ -20,6 +19,16 @@ function drawGrid(dots) {
     // drawGridLines(cnv, gridOptions.majorLines);
     return;
 }
+
+function drawGameStatus(message, ctx, width, height) {
+    ctx.clearRect(0, 0, width, height);
+    ctx.font = "30px Georgia";
+    ctx.fillStyle = 'white';
+    ctx.fillText(message, 140, width/2);
+}
+
+
+    
 
 function drawDots(dots, cnv, lineOptions) {
     var iWidth = cnv.width;
