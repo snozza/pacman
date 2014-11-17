@@ -41,12 +41,13 @@ Server.prototype.onSocketConnection = function(socket, _this) {
 Server.prototype.onClientDisconnect = function(socket, _this) {
   util.log("Player has disconnected: " + socket.id);
   _this.waitingRoom.splice(_this.waitingRoom.indexOf(socket.id), 1);
-  _(_this.games[socket.id].sockets).each(function(socket) {
-    console.log('amazeballs ' + socket.id);
-    socket.emit('opponent:disconnect');
-    socket.disconnect();
-    delete _this.games[socket.id];
-  });
+  if (typeof _this.games[socket.id].sockets !== 'undefined') {
+    _(_this.games[socket.id].sockets).each(function(socket) {
+      socket.emit('opponent:disconnect');
+      socket.disconnect();
+      delete _this.games[socket.id];
+    });
+  }
 }
 
 Server.prototype.onNewPlayer = function(socket, _this) {

@@ -27,21 +27,6 @@ function drawGameStatus(message, ctx, width, height) {
     ctx.fillText(message, 140, width/2);
 }
 
-
-function drawGhost(ghost, ctx) {
-    placeGhost(ghost, ctx);
-}
-
-function placeGhost(ghost, ctx) {
-    var img = new Image();
-    img.onload = function() {
-        ctx.drawImage(img, ghost.x, ghost.y, ghost.width, ghost.height);
-    };
-    img.src = ghost.src;
-}
-
-
-
 function drawDots(dots, cnv, lineOptions) {
     var iWidth = cnv.width;
     var iHeight = cnv.height;
@@ -78,9 +63,6 @@ function drawDots(dots, cnv, lineOptions) {
     ctx.fillStyle = 'black';
     ctx.fillRect(Nest.x, Nest.y, Nest.width, Nest.height);
     ctx.fillRect(Door.x, Door.y, Door.width, Door.height);
-    
-    
-
 }
 
 function drawOuterWalls(cnv, lineOptions) {
