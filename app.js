@@ -20,7 +20,7 @@ function Server() {
 
 Server.prototype.init = function() {
   this.setEventHandlers();
-  server.listen(8080, function() {
+  server.listen(process.env.PORT || 8080, function() {
     console.log("Server listening on port 8080");
   });
 }
