@@ -6,10 +6,11 @@
   this.height = this.canvas.height;
   this.players = {};
   this.clientID = null
+  this.ghost;
 }
 
 Game.prototype.startGame = function() {
-  this.socket.emit('start');
+  this.socket.emit('start')
   this.listenForKey();
   this.linkToGameServer();
   this.listenForUpdate();
@@ -17,6 +18,10 @@ Game.prototype.startGame = function() {
   this.listenForWaiting();
   this.listenForDisconnect();
 }
+
+Game.prototype.addGhost = function() {
+  this.ghost = new Ghost();
+};
 
 Game.prototype.listenForKey = function() {
   _this = this
@@ -38,6 +43,7 @@ Game.prototype.linkToGameServer = function() {
 
 Game.prototype.applyLinkToGame = function(gameID) {
   var _this = this;
+  this.addGhost();
   this.setClientID(this.socket.io.engine.id);
   _(gameID.IDs).each(function(id) {
     _this.newPlayer(id)
@@ -45,11 +51,11 @@ Game.prototype.applyLinkToGame = function(gameID) {
 }
 
 Game.prototype.setClientID = function(uniqueID) {
-  this.clientID = this.clientID || uniqueID;
+ return this.clientID = this.clientID || uniqueID;
 }
 
 Game.prototype.newPlayer = function(id) {
-  this.players[id] = new Pacman(id);
+  return this.players[id] = new Pacman(id);
 }
 
 Game.prototype.listenForUpdate = function() {
@@ -63,7 +69,8 @@ Game.prototype.listenForUpdate = function() {
 Game.prototype.renderAll = function (statuses) {
   _this = this;
   this.context.clearRect(0, 0, this.width, this.height);
-  drawGrid(statuses.maze)
+  drawGrid(statuses.maze);
+  this.ghost.render(statuses.ghost, this.context);
   _(statuses.players).each(function(status) {
     _this.players[status.id].render(_this.context, status)
   }); 
