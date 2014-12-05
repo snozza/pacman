@@ -12,3 +12,4 @@ Lots!!
 1. Add win logic.
 2. Add ghosts.
 3. Add AI for ghosts.
+4. Screenshots
