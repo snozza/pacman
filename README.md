@@ -58,7 +58,7 @@ Run the tests:
 $ mocha
 ```
 
-Start the rails server and visit http://localhost:8080/
+Start the node server and visit http://localhost:8080/
 
 ```
 $ node app.js
