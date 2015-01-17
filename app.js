@@ -7,6 +7,8 @@ var io = require('socket.io')(server);
 var Game = require('./lib/game');
 var Pacman = require('./lib/pacman');
 
+var port = process.env.PORT || 8080
+
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
@@ -19,14 +21,15 @@ function Server() {
 }
 
 Server.prototype.init = function() {
-  this.setEventHandlers();
-  server.listen(8080, function() {
-    console.log("Server listening on port 8080");
+  _this = this;
+  server.listen(port, function() {
+    console.log("Server listening on port "+ port);
+    _this.setEventHandlers();
   });
 }
 
 Server.prototype.setEventHandlers = function() {
-  _this = this
+  _this = this;
   io.on("connection", function(socket) {
     return _this.onSocketConnection(socket, _this);
   });
