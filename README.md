@@ -5,7 +5,7 @@ Hacman
 
 ### Introduction
 
-Week 9 at Makers Academy involved a mini group project that lasted 3 days. The goal of our group's project was to produce a multiplayer pacman game, where people could instantly join and play a version of Pacman. The original decision was to produce the game using a Node.js server for back-end javascript, and the Angular framework to handle the entire front end. By the end of the 3 days, we had two working versions of the game, the original Angular idea, and a combo HTML5 Canvas/Node.js one.
+HTML5/Canvas/Node.js/socket.io Pacman that was built over 3 days. The goal of this project was to produce a multiplayer pacman game, where people could instantly join and play a version of Pacman. The original decision was to produce the game using a Node.js server, and the Angular framework to handle the entire front end. By the end of the 3 days, we had two working versions of the game, the original Angular idea, and a combo HTML5 Canvas/Node.js one.
 
 ### Languages/Platforms/Tools
 
