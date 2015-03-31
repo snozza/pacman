@@ -24,6 +24,7 @@ The original Angular version of the game progressed quite well in the beginning,
 
 
 ### To-do List
+- [ ] Hideous - this thing wasn't test driven.
 - [ ] Improve game logic. Currently there is no method for winning the game.
 - [ ] Improve collsion detection. There are instances where pacman can slightly intersect with maze wall
 - [ ] Re-write the canvas code to only re-render necesary parts of the maze (rather than entire maze)
