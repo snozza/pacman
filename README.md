@@ -18,7 +18,7 @@ HTML5/Canvas/Node.js/socket.io Pacman that was built over 3 days. Mess around wi
 
 ### Learning Outcomes
 
-HTML5 Canvas needs to be cleaned up, the re-rendering currently causes the packman game to be super slow.
+HTML5 Canvas needs to be cleaned up (it's a bit gross), the re-rendering currently causes the packman game to be super slow.
 
 
 ### To-do List
